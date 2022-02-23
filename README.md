@@ -11,3 +11,17 @@ docker-compose exec app php artisan migrate
 ![Web capture_23-2-2022_102429_localhost](https://user-images.githubusercontent.com/4477125/155252059-1d115b6e-99f0-497a-8857-01905fe21928.jpeg)
 
 ![Web capture_23-2-2022_10243_localhost](https://user-images.githubusercontent.com/4477125/155252063-a52e7cfc-f0d2-4b49-9abc-4526d128855d.jpeg)
+
+# sample API
+http://localhost:8000/api/User/show
+
+http://localhost:8000/api/User/detail/1
+
+http://localhost:8000/api/User/update
+
+{
+	"user_id": 1,
+	"name": "user name here",
+	"email" : "testemail@testcom",
+	"password": "test"
+}
