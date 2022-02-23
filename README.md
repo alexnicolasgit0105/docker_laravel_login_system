@@ -3,3 +3,5 @@ docker nginx mysql phpmyadmin laravel with bootstrap
 
 #RUN MIGRATION
 docker-compose exec app php artisan migrate
+
+# laravel app is inside login_system folder
