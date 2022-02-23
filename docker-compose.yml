@@ -1,0 +1,64 @@
+version: "3.2"
+services:
+  app:
+    build:
+      args:
+        user: alex
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: loginsystem
+    container_name: loginsystem-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./login_system:/var/www
+    networks:
+      - loginsystem
+
+  db:
+    image: mysql:5.7
+    container_name: loginsystem-db
+    ports: 
+        - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: myDb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test 
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    # volumes:
+    #   - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - loginsystem
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links: 
+        - db:db
+    ports:
+        - 8001:80
+    environment:
+        MYSQL_USER: user
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test 
+    networks:
+      - loginsystem
+
+  nginx:
+    image: nginx:alpine
+    container_name: loginsystem-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./login_system:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - loginsystem
+
+networks:
+  loginsystem:
+    driver: bridge
