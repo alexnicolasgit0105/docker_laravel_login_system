@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Show the profile for a given user.
+ * THIS IS A STAND ALONE API TEMPORARLLY PUT HERE [can disregard this api]
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
